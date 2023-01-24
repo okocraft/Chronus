@@ -39,5 +39,6 @@ tasks {
         val groupId = project.group
         relocate("org.jetbrains", "$groupId.libs.jetbrains")
         relocate("org.intellij", "$groupId.libs.intellij")
+        relocate("com.github.siroshun09.event4j", "$groupId.libs.event4j")
     }
 }
