@@ -1,6 +1,7 @@
 [versions]
 # common libraries
 annotations = "24.0.0"
+event4j = "3.2.0"
 
 # testing tool
 junit = "5.9.2"
@@ -15,6 +16,7 @@ shadow = "7.1.2"
 
 # common libraries
 annotations = { module = "org.jetbrains:annotations", version.ref = "annotations" }
+event4j = { module = "com.github.siroshun09.event4j:event4j", version.ref = "event4j" }
 
 # testing tool
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }

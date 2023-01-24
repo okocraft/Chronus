@@ -1,5 +1,6 @@
 package net.okocraft.chronus.api;
 
+import net.okocraft.chronus.api.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -25,4 +26,11 @@ public interface Chronus {
     static boolean isInitialized() {
         return APIHolder.isAPISet();
     }
+
+    /**
+     * Gets the {@link EventBus}.
+     *
+     * @return the {@link EventBus}
+     */
+    @NotNull EventBus getEventBus();
 }
