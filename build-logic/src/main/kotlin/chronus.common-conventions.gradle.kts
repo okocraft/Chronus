@@ -12,7 +12,8 @@ val libs = extensions.getByType(org.gradle.accessors.dm.LibrariesForLibs::class)
 val ci = findProperty("chronus.ci")?.toString()?.toBoolean() ?: false
 
 dependencies {
-    implementation(libs.annotations)
+    api(libs.annotations)
+    api(libs.adventure)
 
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
