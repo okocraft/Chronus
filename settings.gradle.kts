@@ -1,5 +1,18 @@
 pluginManagement {
     includeBuild("build-logic")
+
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+
+        maven {
+            name = "PaperMC"
+            url = uri("https://repo.papermc.io/repository/maven-public/")
+            content {
+                includeGroupByRegex("io\\.papermc\\..*")
+            }
+        }
+    }
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
@@ -21,4 +34,11 @@ sequenceOf(
 ).forEach {
     include("$chronusPrefix-platform-$it")
     project(":$chronusPrefix-platform-$it").projectDir = file("./platform/$it")
+}
+
+sequenceOf(
+    "1_19_3"
+).forEach {
+    include("$chronusPrefix-platform-paper-$it")
+    project(":$chronusPrefix-platform-paper-$it").projectDir = file("./platform/paper/versions/paper-$it")
 }
