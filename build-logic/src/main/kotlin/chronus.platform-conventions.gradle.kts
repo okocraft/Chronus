@@ -1,3 +1,5 @@
+import net.okocraft.chronus.messageclassgenerator.task.CollectMessagesFromAllProject
+
 plugins {
     `java-library`
     id("com.github.johnrengelman.shadow")
@@ -9,8 +11,20 @@ dependencies {
     implementation(project(":chronus-core"))
 }
 
+java {
+    sourceSets.main {
+        resources {
+            srcDirs(file(".gradle/caches/message-class-generator/generated-resources"))
+        }
+    }
+}
+
 tasks {
+    val collectMessageTask = create<CollectMessagesFromAllProject>("collectMessagesFromAllProject")
+
     processResources {
+        dependsOn(collectMessageTask)
+
         filesMatching(listOf("plugin.yml")) {
             expand("projectVersion" to project.version)
         }

@@ -1,5 +1,6 @@
 plugins {
     id ("chronus.common-conventions")
+    id ("chronus.message-class-generator")
 }
 
 dependencies {
