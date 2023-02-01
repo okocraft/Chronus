@@ -1,5 +1,3 @@
-import java.io.ByteArrayOutputStream
-
 plugins {
     `java-library`
 }
@@ -9,7 +7,6 @@ repositories {
 }
 
 val libs = extensions.getByType(org.gradle.accessors.dm.LibrariesForLibs::class)
-val ci = findProperty("chronus.ci")?.toString()?.toBoolean() ?: false
 
 dependencies {
     compileOnlyApi(libs.annotations)
@@ -28,12 +25,6 @@ java {
 }
 
 tasks {
-    build {
-        if (ci) {
-            buildDir = rootProject.buildDir.resolve(project.name)
-        }
-    }
-
     compileJava {
         options.encoding = charset.name()
         options.release.set(javaVersion.ordinal + 1)
@@ -50,27 +41,4 @@ tasks {
             events("passed", "skipped", "failed")
         }
     }
-
-    jar {
-        var version = project.version.toString()
-
-        if (ci && version.endsWith("-SNAPSHOT")) { // for development build in CI
-            version = "${project.version}-git-${getLatestCommitHash()}"
-        }
-
-        manifest {
-            attributes(
-                "Implementation-Version" to version
-            )
-        }
-    }
-}
-
-fun getLatestCommitHash(): String {
-    val stdout = ByteArrayOutputStream()
-    exec {
-        commandLine("git", "rev-parse", "--short=7", "HEAD")
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
 }

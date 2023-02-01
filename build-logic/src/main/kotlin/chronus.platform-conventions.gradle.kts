@@ -1,4 +1,8 @@
 import net.okocraft.chronus.messageclassgenerator.task.CollectMessagesFromAllProject
+import java.io.ByteArrayOutputStream
+import java.nio.file.Files
+
+val ci = findProperty("chronus.ci")?.toString()?.toBoolean() ?: false
 
 plugins {
     `java-library`
@@ -32,6 +36,24 @@ tasks {
 
     build {
         dependsOn(shadowJar)
+
+        if (ci) {
+            dependsOn("copyToUploadingDirectory")
+        }
+    }
+
+    jar {
+        var version = project.version.toString()
+
+        if (ci && version.endsWith("-SNAPSHOT")) { // for development build in CI
+            version = "${project.version}-git-${getLatestCommitHash()}"
+        }
+
+        manifest {
+            attributes(
+                "Implementation-Version" to version
+            )
+        }
     }
 
     shadowJar {
@@ -55,4 +77,31 @@ tasks {
         relocate("org.intellij", "$groupId.libs.intellij")
         relocate("com.github.siroshun09.event4j", "$groupId.libs.event4j")
     }
+
+    create("copyToUploadingDirectory") {
+        dependsOn(shadowJar)
+
+        doFirst {
+            val jarFilepath = shadowJar.get().archiveFile.get().asFile.toPath()
+            val targetDir = rootProject.buildDir.toPath().resolve("ci-upload")
+
+            if (!Files.isDirectory(targetDir)) {
+                Files.createDirectories(targetDir)
+            }
+
+            val targetFilepath = targetDir.resolve(jarFilepath.fileName)
+
+            Files.deleteIfExists(targetFilepath)
+            Files.copy(jarFilepath, targetFilepath)
+        }
+    }
+}
+
+fun getLatestCommitHash(): String {
+    val stdout = ByteArrayOutputStream()
+    exec {
+        commandLine("git", "rev-parse", "--short=7", "HEAD")
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
 }
