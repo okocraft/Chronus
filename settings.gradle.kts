@@ -37,7 +37,8 @@ sequenceOf(
 }
 
 sequenceOf(
-    "1_19_3"
+    "shared",
+    "1_19_R2"
 ).forEach {
     include("$chronusPrefix-platform-paper-$it")
     project(":$chronusPrefix-platform-paper-$it").projectDir = file("./platform/paper/versions/paper-$it")

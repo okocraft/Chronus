@@ -10,7 +10,7 @@ junit = "5.9.2"
 # platform api
 
 # paper
-paper = "1.19.3-R0.1-20230127.210711-79" # https://repo.papermc.io/service/rest/repository/browse/maven-public/io/papermc/paper/dev-bundle/
+paper = "1.19.3-R0.1-SNAPSHOT"
 paperweight = "1.4.1"
 
 # gradle plugins
@@ -32,7 +32,4 @@ platform-paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" 
 
 # gradle plugins
 build-shadow = { module = "gradle.plugin.com.github.johnrengelman:shadow", version.ref = "shadow" }
-
-[plugins]
-
-paperweight-userdev = { id = "io.papermc.paperweight.userdev", version.ref = "paperweight"}
+build-paperweight-userdev = { module = "io.papermc.paperweight.userdev:io.papermc.paperweight.userdev.gradle.plugin", version.ref = "paperweight"}

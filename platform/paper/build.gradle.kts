@@ -1,5 +1,5 @@
 plugins {
-    id ("chronus.platform-conventions")
+    id("chronus.platform-conventions")
 }
 
 repositories {
@@ -8,4 +8,9 @@ repositories {
 
 dependencies {
     compileOnly(libs.platform.paper)
+
+    rootProject.allprojects
+        .filter { project -> project.name != name }
+        .filter { project -> project.name.contains("platform-paper") }
+        .forEach { implementation(it) }
 }
