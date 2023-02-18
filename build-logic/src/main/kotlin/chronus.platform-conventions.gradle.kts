@@ -65,7 +65,7 @@ tasks {
         }
 
         val rawPlatformName = projectName.substring(index + 1)
-        val platformName = rawPlatformName[0].toUpperCase() + rawPlatformName.substring(1)
+        val platformName = rawPlatformName[0].uppercase() + rawPlatformName.substring(1)
 
         archiveFileName.set("Chronus-$platformName-${project.version}.jar")
 
