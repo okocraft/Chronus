@@ -5,7 +5,7 @@ adventure = "4.13.1"
 event4j = "3.2.1"
 
 # testing tool
-junit = "5.9.2"
+junit = "5.9.3"
 
 # platform api
 
