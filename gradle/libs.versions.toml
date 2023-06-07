@@ -1,7 +1,7 @@
 [versions]
 # common libraries
 annotations = "24.0.1"
-adventure = "4.13.1"
+adventure = "4.14.0"
 event4j = "3.2.1"
 
 # testing tool
