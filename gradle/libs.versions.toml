@@ -1,16 +1,19 @@
 [versions]
 # common libraries
-annotations = "24.0.0"
-event4j = "3.2.0"
+annotations = "24.0.1"
+event4j = "3.2.1"
 
 # testing tool
-junit = "5.9.2"
+junit = "5.9.3"
 
 # platform api
-paper = "1.19.3-R0.1-SNAPSHOT"
+
+# paper
+paper = "1.20.1-R0.1-SNAPSHOT"
+paperweight = "1.5.5"
 
 # gradle plugins
-shadow = "7.1.2"
+shadow = "8.0.0"
 
 [libraries]
 
@@ -23,7 +26,8 @@ junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 
 # platform api
-platform-paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
+paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
 
 # gradle plugins
 build-shadow = { module = "gradle.plugin.com.github.johnrengelman:shadow", version.ref = "shadow" }
+build-paperweight-userdev = { module = "io.papermc.paperweight.userdev:io.papermc.paperweight.userdev.gradle.plugin", version.ref = "paperweight"}
