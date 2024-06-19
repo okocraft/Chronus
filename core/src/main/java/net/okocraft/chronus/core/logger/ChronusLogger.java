@@ -1,48 +1,51 @@
 package net.okocraft.chronus.core.logger;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.function.Supplier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.SubstituteLogger;
 
 public final class ChronusLogger {
 
-    public static LoggerWrapper logger;
-    public static boolean debug;
+    private static final SubstituteLogger LOGGER = new SubstituteLogger("Chronus", null, true);
+    private static final SubstituteLogger DEBUG = new SubstituteLogger("Chronus Debug", null, true);
 
-    public static @NotNull LoggerWrapper get() {
-        return logger != null ? logger : NonLoggingLogger.INSTANCE;
-    }
-
-    public static boolean isSet() {
-        return logger != null;
-    }
-
-    public static void debug(@NotNull String log) {
-        if (debug) {
-            get().info("DEBUG: " + log);
+    static {
+        try {
+            Class.forName("org.junit.jupiter.api.Assertions");
+            LOGGER.setDelegate(LoggerFactory.getLogger(ChronusLogger.class));
+        } catch (ClassNotFoundException ignored) {
         }
     }
 
-    public static void debug(@NotNull Supplier<String> logSupplier) {
-        if (debug) {
-            get().info("DEBUG: " + logSupplier.get());
-        }
+    /**
+     * Gets the normal {@link Logger}.
+     *
+     * @return the normal {@link Logger}.
+     */
+    public static @NotNull Logger log() {
+        return LOGGER;
     }
 
-    public static void info(@NotNull String log) {
-        get().info(log);
+    /**
+     * Gets the debug {@link Logger}.
+     *
+     * @return the debug {@link Logger}.
+     */
+    public static @NotNull Logger debug() {
+        return DEBUG;
     }
 
-    public static void warn(@NotNull String log) {
-        get().warn(log);
+    /**
+     * Enables or disabled debug logs.
+     *
+     * @param newState {@code true} to enable debug logs, {@code false} to disable them
+     */
+    public static void logDebug(boolean newState) {
+        DEBUG.setDelegate(newState ? LOGGER : null);
     }
 
-    public static void severe(@NotNull String log) {
-        get().severe(log);
+    private ChronusLogger() {
+        throw new UnsupportedOperationException();
     }
-
-    public static void severe(@NotNull String log, @NotNull Throwable t) {
-        get().severe(log, t);
-    }
-
 }

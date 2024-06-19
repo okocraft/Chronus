@@ -4,23 +4,21 @@ plugins {
 
 repositories {
     mavenCentral()
-
-    maven {
-        url = uri("https://repo.papermc.io/repository/maven-public/")
-    }
 }
 
 val libs = extensions.getByType(org.gradle.accessors.dm.LibrariesForLibs::class)
 
 dependencies {
     compileOnlyApi(libs.annotations)
-    compileOnlyApi(libs.paper)
+    compileOnlyApi(libs.slf4j.api)
 
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testRuntimeOnly(libs.slf4j.simple)
 }
 
-val javaVersion = JavaVersion.VERSION_17
+val javaVersion = JavaVersion.VERSION_21
 val charset = Charsets.UTF_8
 
 java {

@@ -6,19 +6,23 @@ import net.okocraft.chronus.core.api.eventbus.EventBusWrapper;
 import net.okocraft.chronus.core.logger.ChronusLogger;
 import net.okocraft.chronus.core.platform.Platform;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.helpers.SubstituteLogger;
 
 /**
  * A core class for loading/enabling/disabling Chronus.
  */
 public class ChronusCore {
 
+    public static ChronusCore initialize(@NotNull Platform platform) {
+        ((SubstituteLogger) ChronusLogger.log()).setDelegate(platform.getLogger());
+        return new ChronusCore(platform);
+    }
+
     private final Platform platform;
     private ChronusAPI api;
 
-    public ChronusCore(@NotNull Platform platform) {
+    private ChronusCore(@NotNull Platform platform) {
         this.platform = platform;
-
-        ChronusLogger.logger = platform.getLogger();
     }
 
     /**

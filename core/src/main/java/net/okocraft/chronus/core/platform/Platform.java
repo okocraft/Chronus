@@ -1,7 +1,7 @@
 package net.okocraft.chronus.core.platform;
 
-import net.okocraft.chronus.core.logger.LoggerWrapper;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 import java.nio.file.Path;
 
@@ -25,11 +25,11 @@ public interface Platform {
     @NotNull String getVersion();
 
     /**
-     * Gets the {@link LoggerWrapper}.
+     * Gets the {@link Logger}.
      *
-     * @return the {@link LoggerWrapper}
+     * @return the {@link Logger}
      */
-    @NotNull LoggerWrapper getLogger();
+    @NotNull Logger getLogger();
 
     /**
      * Gets the directory to save data.

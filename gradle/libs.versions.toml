@@ -2,6 +2,7 @@
 # common libraries
 annotations = "24.1.0"
 event4j = "3.2.1"
+slf4j = "2.0.13"
 
 # testing tool
 junit = "5.10.2"
@@ -9,7 +10,7 @@ junit = "5.10.2"
 # platform api
 
 # paper
-paper = "1.20.1-R0.1-SNAPSHOT"
+paper = "1.21-R0.1-SNAPSHOT"
 paperweight = "1.7.1"
 
 # gradle plugins
@@ -20,14 +21,16 @@ shadow = "8.0.0"
 # common libraries
 annotations = { module = "org.jetbrains:annotations", version.ref = "annotations" }
 event4j = { module = "com.github.siroshun09.event4j:event4j", version.ref = "event4j" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 
-# testing tool
+# testing environment
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 
 # platform api
 paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
 
 # gradle plugins
 build-shadow = { module = "gradle.plugin.com.github.johnrengelman:shadow", version.ref = "shadow" }
-build-paperweight-userdev = { module = "io.papermc.paperweight.userdev:io.papermc.paperweight.userdev.gradle.plugin", version.ref = "paperweight"}
+build-paperweight-userdev = { module = "io.papermc.paperweight.userdev:io.papermc.paperweight.userdev.gradle.plugin", version.ref = "paperweight" }

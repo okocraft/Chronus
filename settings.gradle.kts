@@ -1,14 +1,5 @@
 pluginManagement {
     includeBuild("build-logic")
-
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-
-        maven {
-            url = uri("https://repo.papermc.io/repository/maven-public/")
-        }
-    }
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
