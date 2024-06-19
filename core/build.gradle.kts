@@ -4,5 +4,4 @@ plugins {
 
 dependencies {
     implementation(projects.chronusApi)
-    implementation(libs.event4j)
 }

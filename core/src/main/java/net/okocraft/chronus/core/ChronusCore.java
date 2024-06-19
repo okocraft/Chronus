@@ -1,10 +1,13 @@
 package net.okocraft.chronus.core;
 
+import com.github.siroshun09.event4j.priority.Priority;
+import com.github.siroshun09.event4j.simple.EventServiceProvider;
 import net.okocraft.chronus.api.APISetter;
+import net.okocraft.chronus.api.event.ChronusEvent;
 import net.okocraft.chronus.core.api.ChronusAPI;
-import net.okocraft.chronus.core.api.eventbus.EventBusWrapper;
 import net.okocraft.chronus.core.logger.ChronusLogger;
 import net.okocraft.chronus.core.platform.Platform;
+import net.okocraft.chronus.core.platform.scheduler.Scheduler;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.helpers.SubstituteLogger;
 
@@ -19,10 +22,11 @@ public class ChronusCore {
     }
 
     private final Platform platform;
-    private ChronusAPI api;
+    private final EventServiceProvider<Void, ChronusEvent, Priority> eventServiceProvider;
 
     private ChronusCore(@NotNull Platform platform) {
         this.platform = platform;
+        this.eventServiceProvider = createEventServiceProvider(platform.scheduler());
     }
 
     /**
@@ -39,9 +43,9 @@ public class ChronusCore {
         platform.getLogger().info("Chronus - " + getClass().getPackage().getImplementationVersion());
         platform.getLogger().info("Running on " + platform.getName() + " " + platform.getVersion());
 
-        api = new ChronusAPI(EventBusWrapper.create());
-
-        APISetter.set(api);
+        APISetter.set(new ChronusAPI(
+                this.eventServiceProvider.asyncCaller()
+        ));
     }
 
     /**
@@ -49,7 +53,14 @@ public class ChronusCore {
      */
     public void shutdown() {
         APISetter.unset();
+    }
 
-        api.getEventBus().close();
+    private static @NotNull EventServiceProvider<Void, ChronusEvent, Priority> createEventServiceProvider(@NotNull Scheduler scheduler) {
+        return EventServiceProvider.factory()
+                .keyClass(Void.class) // Change later
+                .eventClass(ChronusEvent.class)
+                .orderComparator(Priority.COMPARATOR, Priority.NORMAL)
+                .executor(scheduler::runAsync)
+                .create();
     }
 }

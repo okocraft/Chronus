@@ -1,22 +1,14 @@
 package net.okocraft.chronus.core.api;
 
+import com.github.siroshun09.event4j.caller.AsyncEventCaller;
 import net.okocraft.chronus.api.Chronus;
-import net.okocraft.chronus.core.api.eventbus.EventBusWrapper;
+import net.okocraft.chronus.api.event.ChronusEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * A class for implementing {@link Chronus}.
  */
-public class ChronusAPI implements Chronus {
-
-    private final EventBusWrapper eventBusWrapper;
-
-    public ChronusAPI(@NotNull EventBusWrapper eventBusWrapper) {
-        this.eventBusWrapper = eventBusWrapper;
-    }
-
-    @Override
-    public @NotNull EventBusWrapper getEventBus() {
-        return eventBusWrapper;
-    }
+public record ChronusAPI(
+        @NotNull AsyncEventCaller<ChronusEvent> eventCaller
+) implements Chronus {
 }

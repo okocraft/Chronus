@@ -1,5 +1,6 @@
 package net.okocraft.chronus.core.platform;
 
+import net.okocraft.chronus.core.platform.scheduler.Scheduler;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
@@ -37,4 +38,12 @@ public interface Platform {
      * @return the directory to save data
      */
     @NotNull Path getDataDirectory();
+
+    /**
+     * Gets the {@link Scheduler}.
+     *
+     * @return the {@link Scheduler}
+     */
+    @NotNull
+    Scheduler scheduler();
 }

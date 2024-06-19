@@ -1,6 +1,7 @@
 package net.okocraft.chronus.api;
 
-import net.okocraft.chronus.api.eventbus.EventBus;
+import com.github.siroshun09.event4j.caller.AsyncEventCaller;
+import net.okocraft.chronus.api.event.ChronusEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -28,9 +29,11 @@ public interface Chronus {
     }
 
     /**
-     * Gets the {@link EventBus}.
+     * Gets an {@link AsyncEventCaller} to call {@link ChronusEvent}s.
      *
-     * @return the {@link EventBus}
+     * @return an {@link AsyncEventCaller}
      */
-    @NotNull EventBus getEventBus();
+    @NotNull AsyncEventCaller<ChronusEvent> eventCaller();
+
+    // TODO: add an interface for subscribing event listeners
 }
