@@ -2,7 +2,7 @@
 # common libraries
 annotations = "24.1.0"
 event4j = "4.0.0-rc.1"
-slf4j = "2.0.13"
+slf4j = "2.0.16"
 
 # testing tool
 junit = "5.10.2"
