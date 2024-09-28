@@ -11,7 +11,7 @@ junit = "5.10.2"
 
 # paper
 paper = "1.21-R0.1-SNAPSHOT"
-paperweight = "1.7.1"
+paperweight = "1.7.3"
 
 # gradle plugins
 shadow = "8.0.0"
