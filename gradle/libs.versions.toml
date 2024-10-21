@@ -5,7 +5,7 @@ event4j = "4.0.0-rc.1"
 slf4j = "2.0.13"
 
 # testing tool
-junit = "5.10.2"
+junit = "5.11.3"
 
 # platform api
 
